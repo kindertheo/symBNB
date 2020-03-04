@@ -19,8 +19,9 @@ class HomeController extends AbstractController{
 
     /**
     * @Route("/hello/{prenom}/age/{age}", name="hello", requirements={"age"="\d+"})
-    * @Route("/hello")
-    * @Route("/hello/{prenom}", name="hello_eric")
+    * @Route("/hello", name="hello_simple")
+    * @Route("/hello/eric/age/41", name="hello_eric")
+    * @Route("/hello/{prenom}", name="hello_prenom")
     *
     * @return void
     */
