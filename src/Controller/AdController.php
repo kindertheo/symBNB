@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
+use App\Entity\Image;
 use App\Form\AdType;
 use App\Repository\AdRepository;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,9 +36,11 @@ class AdController extends AbstractController
      * Permet de créer une annonce
      *
      * @Route("/ads/new", name="ads_create")
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
-    public function create(Request $request, ObjectManager $manager){
+    public function create(Request $request, EntityManagerInterface $manager){
         $ad = new Ad();
 
         $form = $this->createForm(AdType::class, $ad);
@@ -44,6 +48,11 @@ class AdController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+            foreach($ad->getImages() as $image){
+                $image->setAd($ad);
+                $manager->persist($image);
+            }
+
             $manager->persist($ad);
             $manager->flush();
 
@@ -58,6 +67,43 @@ class AdController extends AbstractController
         }
         return $this->render('ad/new.html.twig', [
             'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * Permet d'afficher le formulaire d'edition
+     * @Route("/ads/{slug}/edit", name="ads_edit")
+     * @param Ad $ad
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
+    public function edit(Ad $ad, Request $request,  EntityManagerInterface $manager){
+        $form = $this->createForm(AdType::class, $ad);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            foreach($ad->getImages() as $image){
+                $image->setAd($ad);
+                $manager->persist($image);
+            }
+
+            $manager->persist($ad);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "L'annonce <strong>{$ad->getTitle()}</strong> a bien été modifiée!"
+            );
+
+            return $this->redirectToRoute("ad_show", [
+                'slug' => $ad->getSlug()
+            ]);
+        }
+
+        return $this->render("ad/edit.html.twig", [
+            'form' => $form->createView(), 'ad' => $ad
         ]);
     }
 
