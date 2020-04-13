@@ -18,24 +18,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Class AdType
  * @package App\Form
  */
-class AdType extends AbstractType
+class AdType extends ApplicationType
 {
-
-    /**
-     * Permet d'avoir un tableau
-     * @param $label
-     * @param $placeholder
-     * @param array $options
-     * @return array
-     */
-    private function getConfiguration($label, $placeholder, $options = []) {
-        return array_merge([
-            'label' => $label,
-            'attr' => [
-                'placeholder' => $placeholder
-            ]], $options);
-    }
-
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
