@@ -4,7 +4,6 @@ namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Twig\Environment;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\RequestStack;
 

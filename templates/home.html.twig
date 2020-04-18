@@ -20,143 +20,30 @@
 
         <h2 class="h1 my-5">Nos appartements stars</h2>
             <div class="row mt-5">
-                <div class="col-md-4">
-                    <div class="card bg-light mb-3">
-                        <div class="card-header text-center">
-                            3 chambres <strong>49&euro; /nuit</strong> <br>
-                            <small>Pas encore noté</small>
-                        </div>
-
-                        <img src="http://placehold.it/1000x400" alt="Image de l'appartement" style="height:200px; width:100%, display: block">
-
-                        <div class="card-body">
-                            <h4 class="card-title">Super appartement</h4>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consequat ultrices odio, non varius lacus.
-                                Cras vitae egestas eros, ultricies porttitor diam.
-                                Mauris ac nibh id diam hendrerit pharetra ac vitae mauris.
-                                Donec ut nibh in nisl scelerisque sagittis a ac nulla.
-                                Morbi pharetra erat a velit malesuada aliquam.
-                                Mauris leo urna, ultrices in viverra eu, commodo eu nunc.
-                                Aenean mollis suscipit ante, ut blandit orci cursus ut. Etiam ut pulvinar ex.
-                                Quisque eleifend vehicula tristique. Aenean nec consectetur lacus.
-                                Duis at cursus lacus, vitae tristique erat.
-                            </p>
-
-                            <a href="#" class="btn btn-secondary">En savoir plus</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card bg-light mb-3">
-                        <div class="card-header text-center">
-                            3 chambres <strong>49&euro; /nuit</strong> <br>
-                            <small>Pas encore noté</small>
-                        </div>
-
-                        <img src="http://placehold.it/1000x400" alt="Image de l'appartement" style="height:200px; width:100%, display: block">
-
-                        <div class="card-body">
-                            <h4 class="card-title">Super appartement</h4>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consequat ultrices odio, non varius lacus.
-                                Cras vitae egestas eros, ultricies porttitor diam.
-                                Mauris ac nibh id diam hendrerit pharetra ac vitae mauris.
-                                Donec ut nibh in nisl scelerisque sagittis a ac nulla.
-                                Morbi pharetra erat a velit malesuada aliquam.
-                                Mauris leo urna, ultrices in viverra eu, commodo eu nunc.
-                                Aenean mollis suscipit ante, ut blandit orci cursus ut. Etiam ut pulvinar ex.
-                                Quisque eleifend vehicula tristique. Aenean nec consectetur lacus.
-                                Duis at cursus lacus, vitae tristique erat.
-                            </p>
-
-                            <a href="#" class="btn btn-secondary">En savoir plus</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card bg-light mb-3">
-                        <div class="card-header text-center">
-                            3 chambres <strong>49&euro; /nuit</strong> <br>
-                            <small>Pas encore noté</small>
-                        </div>
-
-                        <img src="http://placehold.it/1000x400" alt="Image de l'appartement" style="height:200px; width:100%, display: block">
-
-                        <div class="card-body">
-                            <h4 class="card-title">Super appartement</h4>
-                            <p class="card-text">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consequat ultrices odio, non varius lacus.
-                                Cras vitae egestas eros, ultricies porttitor diam.
-                                Mauris ac nibh id diam hendrerit pharetra ac vitae mauris.
-                                Donec ut nibh in nisl scelerisque sagittis a ac nulla.
-                                Morbi pharetra erat a velit malesuada aliquam.
-                                Mauris leo urna, ultrices in viverra eu, commodo eu nunc.
-                                Aenean mollis suscipit ante, ut blandit orci cursus ut. Etiam ut pulvinar ex.
-                                Quisque eleifend vehicula tristique. Aenean nec consectetur lacus.
-                                Duis at cursus lacus, vitae tristique erat.
-                            </p>
-
-                            <a href="#" class="btn btn-secondary">En savoir plus</a>
-                        </div>
-                    </div>
-                </div>
+                {% for data in ads %}
+                    {% include 'ad/_ad.html.twig' with {'ad': data.annonce} %}
+                {% endfor %}
             </div>
 
             <h2 class="h1 my-5">Nos propriétaires stars!</h2>
                 <div class="row">
+                    {% for data in users %}
                     <div class="col">
                         <div class="card border-secondary mb-3">
                             <div class="card-body">
-                                <h4 class="card-title">Théo Kinder</h4>
+                                <h4 class="card-title">{{ data.user.fullName }}</h4>
 
                                 <hr>
 
                                 <div class="card-text">
-                                    <img src="http://placehold.it/64x64" alt="Avatar de Kinder Théo" class="float-left mr-3">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consequat ultrices odio, non varius lacus.
-                                        Cras vitae egestas eros, ultricies porttitor diam.</p>
-                                    <a href="#" class="btn btn-success float-right">En savoir plus!</a>
+                                    <img src="{{ data.user.picture }}" alt="Avatar de {{ data.user.fullName }}" class="float-left mr-3">
+                                    <p>{{ data.user.introduction }}</p>
+                                    <a href="{{ path('user_show', {'slug': data.user.slug} ) }}" class="btn btn-success float-right">En savoir plus!</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card border-secondary mb-3">
-                            <div class="card-body">
-                                <h4 class="card-title">Théo Kinder</h4>
-
-                                <hr>
-
-                                <div class="card-text">
-                                    <img src="http://placehold.it/64x64" alt="Avatar de Kinder Théo" class="float-left mr-3">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consequat ultrices odio, non varius lacus.
-                                        Cras vitae egestas eros, ultricies porttitor diam.</p>
-                                    <a href="#" class="btn btn-success float-right">En savoir plus!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card border-secondary mb-3">
-                            <div class="card-body">
-                                <h4 class="card-title">Théo Kinder</h4>
-
-                                <hr>
-
-                                <div class="card-text">
-                                    <img src="http://placehold.it/64x64" alt="Avatar de Kinder Théo" class="float-left mr-3">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consequat ultrices odio, non varius lacus.
-                                        Cras vitae egestas eros, ultricies porttitor diam.</p>
-                                    <a href="#" class="btn btn-success float-right">En savoir plus!</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
         </div>
 {% endblock %}
